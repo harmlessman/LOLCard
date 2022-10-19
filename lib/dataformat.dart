@@ -12,13 +12,20 @@ class CardData{
     'champ01' : {
       'champ01_rate' : null,
       'champ01_grade' : null,
-      'champ01_'
+      'champ01_play' : null,
+      'champ01_icon' : null
     },
     'champ02' : {
-
+      'champ02_rate' : null,
+      'champ02_grade' : null,
+      'champ02_play' : null,
+      'champ02_icon' : null
     },
     'champ03' : {
-
+      'champ03_rate' : null,
+      'champ03_grade' : null,
+      'champ03_play' : null,
+      'champ03_icon' : null
     },
 
   };
