@@ -12,8 +12,8 @@ void main() {
   CardData card = CardData();
   CardData card2 = CardData();
   print(card);
-  card.userName = "leejunyong";
-  card2.userName = "kimjunyong";
+  card.userName = "";
+  card2.userName = "";
   dynamic l = [card.toJson(), card2.toJson()];
   print(l);
 
