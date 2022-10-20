@@ -2,20 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'dataformat.dart';
 import 'dart:convert';
-
+import 'input_username.dart';
+import 'setting.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
   FlutterNativeSplash.remove();
-  CardData card = CardData();
-  CardData card2 = CardData();
-  print(card);
-  card.userName = "";
-  card2.userName = "";
-  dynamic l = [card.toJson(), card2.toJson()];
-  print(l);
 
 
 }
@@ -27,10 +21,49 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LOL Card main',
+        title: 'LOL Card main',
+        home:MainPage()
 
     );
   }
 }
 
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('LOL Card'),
+          centerTitle: true,
+          actions: [IconButton(onPressed: OpenSet, icon: Icon(Icons.settings))],
+        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: OpenInputUsername,
+            child: Icon(Icons.add)
+        )
+
+    );
+  }
+
+  void OpenInputUsername(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context)=> InputUsername())
+    );
+  }
+
+  void OpenSet(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context)=> Setting())
+    );
+  }
+}
 
