@@ -7,6 +7,8 @@ class CardData{
   Lane? lane;
   int? rate;
   String? iconImagePath;
+  int? win;
+  int? loss;
 
   Map<String, dynamic>? mostChampions ={
     'champ01' : {
@@ -36,8 +38,11 @@ class CardData{
     tier = json[tier];
     lane = json[lane];
     rate = json[rate];
+    win = json[win];
+    loss = json[loss];
     iconImagePath = json[iconImagePath];
     mostChampions = json[mostChampions];
+
   }
 
   toJson(){
@@ -47,6 +52,8 @@ class CardData{
       'tier' : tier,
       'lane' : lane,
       'rate' : rate,
+      'win' : win,
+      'loss' : loss,
       'iconImagePath' : iconImagePath,
       'mostChampions' : mostChampions
     };
