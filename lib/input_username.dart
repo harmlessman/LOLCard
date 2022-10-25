@@ -76,7 +76,7 @@ class _InputUsernameState extends State<InputUsername> {
                       child: ElevatedButton(
                         onPressed: ()=>{
                           userName = inputController.text,
-                          print(userName)
+                          print(userName),
 
                         },
                         child: Container(

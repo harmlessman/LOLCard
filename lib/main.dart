@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'dataformat.dart';
+import 'carddata.dart';
 import 'dart:convert';
 import 'input_username.dart';
 import 'setting.dart';
+import 'cardframe.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -59,10 +60,12 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  // 이건 cardframe 테스트용입니다.
+  var a = CardData();
   void OpenSet(){
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context)=> Setting())
+        MaterialPageRoute(builder: (context)=> CardFrame(cardData: a))
     );
   }
 }

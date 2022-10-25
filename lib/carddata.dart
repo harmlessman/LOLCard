@@ -10,30 +10,30 @@ class CardData{
   int? win;
   int? loss;
 
-  Map<String, dynamic>? mostChampions ={
+  Map<String, dynamic> mostChampions ={
     'champ01' : {
-      'champ01_rate' : null,
-      'champ01_grade' : null,
-      'champ01_play' : null,
-      'champ01_icon' : null
+      'champ01Rate' : null,
+      'champ01Grade' : null,
+      'champ01Play' : null,
+      'champ01Icon' : null
     },
     'champ02' : {
-      'champ02_rate' : null,
-      'champ02_grade' : null,
-      'champ02_play' : null,
-      'champ02_icon' : null
+      'champ02Rate' : null,
+      'champ02Grade' : null,
+      'champ02Play' : null,
+      'champ02Icon' : null
     },
     'champ03' : {
-      'champ03_rate' : null,
-      'champ03_grade' : null,
-      'champ03_play' : null,
-      'champ03_icon' : null
+      'champ03Rate' : null,
+      'champ03Grade' : null,
+      'champ03Play' : null,
+      'champ03Icon' : null
     },
 
   };
 
 
-  readJson(Map<String, dynamic> json){
+  fromJson(Map<String, dynamic> json){
     userName = json[userName];
     tier = json[tier];
     lane = json[lane];
