@@ -11,23 +11,26 @@ class CardData{
   int? loss;
 
   Map<String, dynamic> mostChampions ={
-    'champ01' : {
-      'champ01Rate' : null,
-      'champ01Grade' : null,
-      'champ01Play' : null,
-      'champ01Icon' : null
+    'champ0' : {
+      'champ0Rate' : 0,
+      'champ0Grade' : [],
+      'champ0Play' : 0,
+      'champ0Icon' : '',
+      'champ0Name' : ''
     },
-    'champ02' : {
-      'champ02Rate' : null,
-      'champ02Grade' : null,
-      'champ02Play' : null,
-      'champ02Icon' : null
+    'champ1' : {
+      'champ1Rate' : 0,
+      'champ1Grade' : [],
+      'champ1Play' : 0,
+      'champ1Icon' : '',
+      'champ1Name' : ''
     },
-    'champ03' : {
-      'champ03Rate' : null,
-      'champ03Grade' : null,
-      'champ03Play' : null,
-      'champ03Icon' : null
+    'champ2' : {
+      'champ2Rate' : 0,
+      'champ2Grade' : [],
+      'champ2Play' : 0,
+      'champ2Icon' : '',
+      'champ2Name' : ''
     },
 
   };
