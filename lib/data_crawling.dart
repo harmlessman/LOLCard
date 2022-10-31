@@ -12,14 +12,22 @@ css-e9xk5o e1g7spwk3 => 모스트 챔프
 css-1d2nav3 eioz3425 => 유저 정보
  */
 void main() async{
-  dataCrawling('DK ShowMaker');
+  dataCrawling('');
 
 }
 
 dynamic dataCrawling(String userName, {String server='kr'}) async{
-  var url  = Uri.parse('https://www.op.gg/summoners/${server}/${userName}');
+  var url  = Uri.parse('https://www.op.gg/summoners/$server/$userName');
 
-  var re = await http.get(url);
+  http.Response re;
+
+  // except error (normally network issue)
+  try{
+    re = await http.get(url);
+  } catch(e){
+    print('Network Error!');
+    return 0;
+  }
 
   var opggData = parse(re.body);
 
@@ -27,14 +35,52 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
 
   // op.gg server error
   if (re.statusCode/100 !=2) {
-    return 0;
+    return 1;
   }
 
   // an unregistered summoner
-  CardData data = CardData();
   if (opggData.getElementsByClassName('profile-icon').isEmpty){
-    return 1;
+    return 2;
   }
+
+  // variable
+  String? userIcon;
+  String? lane;
+  int? userLevel;
+
+  String? tier;
+  int? rate;
+  int? win;
+  int? loss;
+  int? lp;
+
+
+  Map<String, dynamic> mostChampions ={
+    'champ0' : {
+      'champ0Rate' : 0,
+      'champ0Grade' : [],
+      'champ0Play' : 0,
+      'champ0Icon' : '',
+      'champ0Name' : ''
+    },
+    'champ1' : {
+      'champ1Rate' : 0,
+      'champ1Grade' : [],
+      'champ1Play' : 0,
+      'champ1Icon' : '',
+      'champ1Name' : ''
+    },
+    'champ2' : {
+      'champ2Rate' : 0,
+      'champ2Grade' : [],
+      'champ2Play' : 0,
+      'champ2Icon' : '',
+      'champ2Name' : ''
+    },
+
+  };
+
+
 
   var rankInfo = opggData.getElementsByClassName('css-1v663t e1x14w4w1')[0];
   var mostChampInfo = opggData.getElementsByClassName('css-e9xk5o e1g7spwk3')[0];
@@ -48,79 +94,91 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
 
   //mostChampInfo crawling
   for (int i=0; i<mostChampIen; i++){
-    data.mostChampions['champ$i']['champ${i}Icon'] = (
+    mostChampions['champ$i']['champ${i}Icon'] = (
         mostChampInfo.querySelectorAll('img')[i].attributes['src']);
-    print(data.mostChampions['champ$i']['champ${i}Icon']);
+    print(mostChampions['champ$i']['champ${i}Icon']);
 
-    data.mostChampions['champ$i']['champ${i}Name'] = (
+    mostChampions['champ$i']['champ${i}Name'] = (
         mostChampInfo.getElementsByClassName('name')[i].getElementsByTagName('a')[0].innerHtml);
-    print(data.mostChampions['champ$i']['champ${i}Name']);
+    print(mostChampions['champ$i']['champ${i}Name']);
 
-    data.mostChampions['champ$i']['champ${i}Play'] = (
+    mostChampions['champ$i']['champ${i}Play'] = (
         int.parse(mostChampInfo.getElementsByClassName('count')[i].innerHtml.split(ANO)[0]));
-    print(data.mostChampions['champ$i']['champ${i}Play']);
+    print(mostChampions['champ$i']['champ${i}Play']);
 
-    data.mostChampions['champ$i']['champ${i}Rate'] = (
+    mostChampions['champ$i']['champ${i}Rate'] = (
         mostChampInfo.getElementsByClassName('played')[i].querySelectorAll('div')[1].innerHtml.split(ANO)[0]);
-    print(data.mostChampions['champ$i']['champ${i}Rate']);
+    print(mostChampions['champ$i']['champ${i}Rate']);
 
-    data.mostChampions['champ$i']['champ${i}Grade'] = (
+    mostChampions['champ$i']['champ${i}Grade'] = (
         mostChampInfo.getElementsByClassName('detail')[i].innerHtml.split('/'));
-    print(data.mostChampions['champ$i']['champ${i}Grade']);
+    print(mostChampions['champ$i']['champ${i}Grade']);
 
   }
 
   //rankInfo crawling
   if (rankInfo.getElementsByClassName('tier').isNotEmpty){
-    data.tier =(
+    tier =(
         rankInfo.getElementsByClassName('tier')[0].innerHtml.replaceAll(ANO, '')
     );
-    print(data.tier);
+    print(tier);
   }
 
   if (rankInfo.getElementsByClassName('lp').isNotEmpty){
-    data.lp = (
+    lp = (
         int.parse(rankInfo.getElementsByClassName('lp')[0].innerHtml.split(ANO)[0])
     );
-    print(data.lp);
+    print(lp);
   }
 
   if (rankInfo.getElementsByClassName('win-lose').isNotEmpty){
-    data.win = (
+    win = (
         int.parse(rankInfo.getElementsByClassName('win-lose')[0].innerHtml.split(ANO)[0].replaceAll(RegExp(r'[^0-9]'), ''))
     );
-    print(data.win);
+    print(win);
 
-    data.loss = (
+    loss = (
         int.parse(rankInfo.getElementsByClassName('win-lose')[0].innerHtml.split(ANO).last.replaceAll(RegExp(r'[^0-9]'), ''))
     );
-    print(data.loss);
+    print(loss);
   }
 
 
 
   if (rankInfo.getElementsByClassName('ratio').isNotEmpty){
-    data.rate = (
+    rate = (
         int.parse(rankInfo.getElementsByClassName('ratio')[0].innerHtml.split(ANO)[2])
     );
-    print(data.rate);
+    print(rate);
   }
 
   //userInfo crawling
   if (opggData.getElementsByClassName('profile-icon').isNotEmpty){
-    data.userIcon = (
+    userIcon = (
         opggData.getElementsByClassName('profile-icon')[0].getElementsByTagName('img')[0].attributes['src']
-    );
-    print(data.userIcon);
+    )!;
+    print(userIcon);
   }
 
   if (opggData.getElementsByClassName('level').isNotEmpty){
-    data.userLevel = (
+    userLevel = (
         int.parse(opggData.getElementsByClassName('level')[0].innerHtml)
     );
-    print(data.userLevel);
+    print(userLevel);
   }
 
+  CardData data = CardData(
+      userName : userName,
+      userIcon : userIcon,
+      lane : lane,
+      userLevel : userLevel,
+      tier : tier,
+      rate : rate,
+      win : win,
+      loss : loss,
+      lp : lp,
+      mostChampions : mostChampions
+  );
     return data;
   }
 

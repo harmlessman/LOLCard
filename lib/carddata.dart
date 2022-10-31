@@ -1,16 +1,28 @@
-import 'dart:convert';
-
-
 class CardData{
+  // final String userName;
+  // final String userIcon;
+  // final String lane;
+  // final int userLevel;
+  //
+  // final String tier;
+  // final int rate;
+  // final int win;
+  // final int loss;
+  // final int lp;
+
   String? userName;
-  TierList? tier;
-  Lane? lane;
+  String? userIcon;
+  String? lane;
+  int? userLevel;
+
+  String? tier;
   int? rate;
-  String? iconImagePath;
   int? win;
   int? loss;
+  int? lp;
 
-  Map<String, dynamic> mostChampions ={
+
+  Map<String, dynamic>? mostChampions ={
     'champ0' : {
       'champ0Rate' : 0,
       'champ0Grade' : [],
@@ -36,15 +48,31 @@ class CardData{
   };
 
 
-  fromJson(Map<String, dynamic> json){
-    userName = json[userName];
-    tier = json[tier];
-    lane = json[lane];
-    rate = json[rate];
-    win = json[win];
-    loss = json[loss];
-    iconImagePath = json[iconImagePath];
-    mostChampions = json[mostChampions];
+  CardData({
+    this.userName,
+    this.userIcon,
+    this.lane,
+    this.userLevel,
+    this.tier,
+    this.rate,
+    this.win,
+    this.loss,
+    this.lp,
+    this.mostChampions,
+  });
+
+
+  CardData.fromJson(Map<String, dynamic> json){
+    userName = json['userName'];
+    tier = json['tier'];
+    lane = json['lane'];
+    rate = json['rate'];
+    win = json['win'];
+    loss = json['loss'];
+    userIcon = json['iconImagePath'];
+    mostChampions = json['mostChampions'];
+    lp = json['lp'];
+    userLevel = json['userLevel'];
 
   }
 
@@ -57,8 +85,11 @@ class CardData{
       'rate' : rate,
       'win' : win,
       'loss' : loss,
-      'iconImagePath' : iconImagePath,
-      'mostChampions' : mostChampions
+      'iconImagePath' : userIcon,
+      'mostChampions' : mostChampions,
+      'userLevel' : userLevel,
+      'lp' : lp,
+      'userIcon' : userIcon,
     };
     return json;
   }
