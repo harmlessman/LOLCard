@@ -35,6 +35,9 @@ class _InputUsernameState extends State<InputUsername> {
   FailDialog(BuildContext context, dynamic code){
     String text = 'Null';
     switch (code){
+      case -1:
+        text = 'Blank';
+        break;
       case 0:
         text = 'Except Error (normally network issue)';
         break;
@@ -75,6 +78,14 @@ class _InputUsernameState extends State<InputUsername> {
   EnterEvent() async{
     userName = inputController.text;
     LoadingDialog(context);
+
+    // username이 blank일 때,
+    if (userName == '') {
+      Navigator.pop(context);
+      FailDialog(context, -1);
+      return -1;
+    }
+
     // await 붙이면 CardData, 안붙이면 Future<dynamic>
     dynamic data = await dataCrawling(userName);
 
