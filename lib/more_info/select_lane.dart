@@ -4,9 +4,9 @@ import 'package:lolcard/more_info/select_thema.dart';
 
 class SelectLane extends StatefulWidget {
   final CardData? data;
-  const SelectLane({
+  const SelectLane(this.data, {
     Key? key,
-    this.data}) : super(key: key);
+    }) : super(key: key);
 
 
   @override
@@ -15,6 +15,37 @@ class SelectLane extends StatefulWidget {
 
 class _SelectLaneState extends State<SelectLane> {
   List<bool> isSelected = <bool>[false,false,false,false,false];
+
+  EnterEvent(){
+    if (isSelected.contains(true)){
+      switch(isSelected.indexOf(true)){
+        case 0:
+          widget.data?.lane = 'TOP';
+          break;
+        case 1:
+          widget.data?.lane = 'MID';
+          break;
+        case 2:
+          widget.data?.lane = 'JUG';
+          break;
+        case 3:
+          widget.data?.lane = 'SUPP';
+          break;
+        case 4:
+          widget.data?.lane = 'ADC';
+          break;
+      }
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context)=> SelectThema(widget.data))
+      );
+
+    }
+    else{
+      nonLaneDialog(context);
+    }
+  }
 
   nonLaneDialog(BuildContext context){
     showDialog(barrierDismissible: false,
@@ -98,19 +129,7 @@ class _SelectLaneState extends State<SelectLane> {
                   Container(
                     padding: EdgeInsets.all(20.0),
                     child: ElevatedButton(
-                      onPressed: ()=>{
-                        if (isSelected.contains(true)){
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context)=> SelectThema())
-                          )
-
-                        }
-                        else{
-                          nonLaneDialog(context)
-                        }
-                      },
+                      onPressed: EnterEvent,
                       child: Container(
                         child: Text('Enter'),
                       ),

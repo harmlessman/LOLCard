@@ -99,7 +99,7 @@ class _InputUsernameState extends State<InputUsername> {
 
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context)=> SelectLane())
+        MaterialPageRoute(builder: (context)=> SelectLane(data))
     );
     return data;
 
