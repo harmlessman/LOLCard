@@ -22,6 +22,7 @@ class CardData{
   int? lp;
 
 
+
   Map<String, dynamic>? mostChampions ={
     'champ0' : {
       'champ0Rate' : 0,
@@ -103,4 +104,3 @@ enum TierList{
 enum Lane{
   top, mid, jungle, adc, support
 }
-

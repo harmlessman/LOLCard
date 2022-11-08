@@ -3,7 +3,7 @@ import 'package:lolcard/carddata.dart';
 import 'package:lolcard/more_info/select_thema.dart';
 
 class SelectLane extends StatefulWidget {
-  final CardData? data;
+  final CardData data;
   const SelectLane(this.data, {
     Key? key,
     }) : super(key: key);
@@ -20,19 +20,19 @@ class _SelectLaneState extends State<SelectLane> {
     if (isSelected.contains(true)){
       switch(isSelected.indexOf(true)){
         case 0:
-          widget.data?.lane = 'TOP';
+          widget.data.lane = 'TOP';
           break;
         case 1:
-          widget.data?.lane = 'MID';
+          widget.data.lane = 'MID';
           break;
         case 2:
-          widget.data?.lane = 'JUG';
+          widget.data.lane = 'JUG';
           break;
         case 3:
-          widget.data?.lane = 'SUPP';
+          widget.data.lane = 'SUPP';
           break;
         case 4:
-          widget.data?.lane = 'ADC';
+          widget.data.lane = 'ADC';
           break;
       }
 
