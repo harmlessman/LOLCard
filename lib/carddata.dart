@@ -50,15 +50,15 @@ class CardData{
 
 
   CardData({
-    this.userName,
-    this.userIcon,
-    this.lane,
-    this.userLevel,
-    this.tier,
-    this.rate,
-    this.win,
-    this.loss,
-    this.lp,
+    this.userName='',
+    this.userIcon='',
+    this.lane='All Rounder',
+    this.userLevel=0,
+    this.tier='Unranked',
+    this.rate=0,
+    this.win=0,
+    this.loss=0,
+    this.lp=0,
     this.mostChampions,
   });
 
@@ -97,10 +97,3 @@ class CardData{
 
 }
 
-enum TierList{
-  iron, bronze, sliver, gold, platinum, diamond, master, grandmaster, challenger
-}
-
-enum Lane{
-  top, mid, jungle, adc, support
-}
