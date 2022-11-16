@@ -57,25 +57,25 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
 
   Map<String, dynamic> mostChampions ={
     'champ0' : {
-      'champ0Rate' : 0,
-      'champ0Grade' : [],
-      'champ0Play' : 0,
-      'champ0Icon' : '',
-      'champ0Name' : ''
+      'champRate' : 0,
+      'champGrade' : [],
+      'champPlay' : 0,
+      'champIcon' : '',
+      'champName' : ''
     },
     'champ1' : {
-      'champ1Rate' : 0,
-      'champ1Grade' : [],
-      'champ1Play' : 0,
-      'champ1Icon' : '',
-      'champ1Name' : ''
+      'champRate' : 0,
+      'champGrade' : [],
+      'champPlay' : 0,
+      'champIcon' : '',
+      'champName' : ''
     },
     'champ2' : {
-      'champ2Rate' : 0,
-      'champ2Grade' : [],
-      'champ2Play' : 0,
-      'champ2Icon' : '',
-      'champ2Name' : ''
+      'champRate' : 0,
+      'champGrade' : [],
+      'champPlay' : 0,
+      'champIcon' : '',
+      'champName' : ''
     },
 
   };
@@ -88,32 +88,30 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
 
   int mostChampIen = mostChampInfo.querySelectorAll('img').length;
 
+
   if (mostChampIen>3){
     mostChampIen=3;
+  }
+  else if (mostChampIen==3){
+    mostChampIen=2; // 맨 밑의 더보기 아이콘(img) 때문에
   }
 
   //mostChampInfo crawling
   for (int i=0; i<mostChampIen; i++){
-    mostChampions['champ$i']['champ${i}Icon'] = (
+    mostChampions['champ$i']['champIcon'] = (
         mostChampInfo.querySelectorAll('img')[i].attributes['src']);
-    print(mostChampions['champ$i']['champ${i}Icon']);
 
-    mostChampions['champ$i']['champ${i}Name'] = (
+    mostChampions['champ$i']['champName'] = (
         mostChampInfo.getElementsByClassName('name')[i].getElementsByTagName('a')[0].innerHtml);
-    print(mostChampions['champ$i']['champ${i}Name']);
 
-    mostChampions['champ$i']['champ${i}Play'] = (
+    mostChampions['champ$i']['champPlay'] = (
         int.parse(mostChampInfo.getElementsByClassName('count')[i].innerHtml.split(ANO)[0]));
-    print(mostChampions['champ$i']['champ${i}Play']);
 
-    mostChampions['champ$i']['champ${i}Rate'] = (
+    mostChampions['champ$i']['champRate'] = (
         mostChampInfo.getElementsByClassName('played')[i].querySelectorAll('div')[1].innerHtml.split(ANO)[0]);
-    print(mostChampions['champ$i']['champ${i}Rate']);
 
-    mostChampions['champ$i']['champ${i}Grade'] = (
+    mostChampions['champ$i']['champGrade'] = (
         mostChampInfo.getElementsByClassName('detail')[i].innerHtml.split('/'));
-    print(mostChampions['champ$i']['champ${i}Grade']);
-
   }
 
   //rankInfo crawling
@@ -121,26 +119,21 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
     tier =(
         rankInfo.getElementsByClassName('tier')[0].innerHtml.replaceAll(ANO, '')
     );
-    print(tier);
   }
 
   if (rankInfo.getElementsByClassName('lp').isNotEmpty){
     lp = (
         int.parse(rankInfo.getElementsByClassName('lp')[0].innerHtml.split(ANO)[0])
     );
-    print(lp);
   }
 
   if (rankInfo.getElementsByClassName('win-lose').isNotEmpty){
     win = (
         int.parse(rankInfo.getElementsByClassName('win-lose')[0].innerHtml.split(ANO)[0].replaceAll(RegExp(r'[^0-9]'), ''))
     );
-    print(win);
-
     loss = (
         int.parse(rankInfo.getElementsByClassName('win-lose')[0].innerHtml.split(ANO).last.replaceAll(RegExp(r'[^0-9]'), ''))
     );
-    print(loss);
   }
 
 
@@ -149,7 +142,6 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
     rate = (
         int.parse(rankInfo.getElementsByClassName('ratio')[0].innerHtml.split(ANO)[2])
     );
-    print(rate);
   }
 
   //userInfo crawling
@@ -157,14 +149,12 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
     userIcon = (
         opggData.getElementsByClassName('profile-icon')[0].getElementsByTagName('img')[0].attributes['src']
     )!;
-    print(userIcon);
   }
 
   if (opggData.getElementsByClassName('level').isNotEmpty){
     userLevel = (
         int.parse(opggData.getElementsByClassName('level')[0].innerHtml)
     );
-    print(userLevel);
   }
 
   CardData data = CardData(
@@ -179,7 +169,8 @@ dynamic dataCrawling(String userName, {String server='kr'}) async{
       lp : lp,
       mostChampions : mostChampions
   );
-    return data;
+  data.printInfo();
+  return data;
   }
 
 
