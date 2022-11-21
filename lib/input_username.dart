@@ -13,6 +13,22 @@ class _InputUsernameState extends State<InputUsername> {
   TextEditingController inputController = TextEditingController();
   String userName = '';
   bool loading = false;
+  Map countryMap = {
+    'North America' : 'na',
+    'Europe West' : 'euw',
+    'Europe Nordic & East' : 'eune',
+    'Oceania' : 'oce',
+    'Korea' : 'kr',
+    'Japan' : 'jp',
+    'Brazil' : 'br',
+    'LAS' : 'las',
+    'LAN' : 'lan',
+    'Russia' : 'ru',
+    'Turkiye' : 'tr'
+  };
+  String selectCountry = 'Korea';
+
+
 
   LoadingDialog(BuildContext context){
     AlertDialog alert=AlertDialog(
@@ -87,7 +103,7 @@ class _InputUsernameState extends State<InputUsername> {
     }
 
     // await 붙이면 CardData, 안붙이면 Future<dynamic>
-    dynamic data = await dataCrawling(userName);
+    dynamic data = await dataCrawling(userName, server: countryMap[selectCountry]);
 
     Navigator.pop(context);
 
@@ -120,10 +136,38 @@ class _InputUsernameState extends State<InputUsername> {
                   child: Text(
                     'Input your username!',
                     style: TextStyle(
-                      fontSize: 41,
+                      fontFamily: 'normal',
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+
                     ),
 
                   ),
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Choose Country'),
+
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                    ),
+
+                    DropdownButton(
+                        value: selectCountry,
+                        items: countryMap.keys.map((value){
+                          return DropdownMenuItem(
+                              value: value,
+                              child: Text(value));
+                        }).toList(),
+                        onChanged: (value){
+                          setState(() {
+                            selectCountry = value as String;
+                          });
+                        })
+                  ],
                 ),
 
                 Container(
