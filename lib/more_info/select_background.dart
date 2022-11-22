@@ -6,17 +6,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lolcard/card_capture.dart';
 import 'package:lolcard/cardframe.dart';
 
-class SelectThema extends StatefulWidget {
+class SelectBackground extends StatefulWidget {
   final CardData data;
-  const SelectThema(this.data, {Key? key}) : super(key: key);
+  const SelectBackground(this.data, {Key? key}) : super(key: key);
 
   @override
-  State<SelectThema> createState() => _SelectThemaState();
+  State<SelectBackground> createState() => _SelectBackgroundState();
 }
 
-class _SelectThemaState extends State<SelectThema> {
+class _SelectBackgroundState extends State<SelectBackground> {
   ImagePicker picker = ImagePicker();
-  dynamic thema;
+  dynamic background;
   Color pickerColor = Colors.white;
 
 
@@ -27,7 +27,7 @@ class _SelectThemaState extends State<SelectThema> {
   }
 
   colorDialog(BuildContext context){
-    print(thema);
+    print(background);
     showDialog(barrierDismissible: false,
       context:context,
       builder:(BuildContext context){
@@ -43,7 +43,7 @@ class _SelectThemaState extends State<SelectThema> {
             ElevatedButton(
               child: Text('Got it'),
               onPressed: () {
-                setState(() => thema  = pickerColor);
+                setState(() => background  = pickerColor);
                 Navigator.of(context).pop();
 
               },
@@ -60,17 +60,17 @@ class _SelectThemaState extends State<SelectThema> {
     final getImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (getImage!=null) {
-        thema = getImage;
+        background = getImage;
       }
     });
   }
 
   EnterEvent(){
-    print(thema.runtimeType);
-    if (thema != null){
+    print(background.runtimeType);
+    if (background != null){
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context)=> CardCapture(CardFrame(cardData : widget.data, thema: thema)))
+          MaterialPageRoute(builder: (context)=> CardCapture(CardFrame(cardData : widget.data, background: background)))
       );
     }
     else{
@@ -83,8 +83,8 @@ class _SelectThemaState extends State<SelectThema> {
   // width: 100,
   // height: 100,
   // ),
-  Widget Preview(dynamic thema){
-    if (thema == null){
+  Widget Preview(dynamic background){
+    if (background == null){
     return Container(
           child: Text('No Color or Image',
             textAlign: TextAlign.center,
@@ -92,16 +92,16 @@ class _SelectThemaState extends State<SelectThema> {
           ),
       );
     }
-    else if(thema is XFile){
+    else if(background is XFile){
       // 명함 비율은 9:5
       return Container(
-        height: 630.0,
-        width: 350.0,
+        height: (MediaQuery.of(context).size.width)*0.6*1.8,
+        width: (MediaQuery.of(context).size.width)*0.6,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           image: DecorationImage(
             image: FileImage((
-              File(thema.path))),
+              File(background.path))),
               fit: BoxFit.fill,
           ),
         ),
@@ -109,11 +109,11 @@ class _SelectThemaState extends State<SelectThema> {
     }
     else{
       return Container(
-        height: 630.0,
-        width: 350.0,
+        height: (MediaQuery.of(context).size.width)*0.6*1.8,
+        width: (MediaQuery.of(context).size.width)*0.6,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: thema
+          color: background
         ),
       );
     }
@@ -130,7 +130,7 @@ class _SelectThemaState extends State<SelectThema> {
             children: [Text("Failure")],
           ),
           content: Row(
-            children: [Text('Please choose your thema')],
+            children: [Text('Please choose your background')],
           ),
           actions: [
             TextButton(
@@ -152,7 +152,7 @@ class _SelectThemaState extends State<SelectThema> {
         child : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Preview(thema),
+            Preview(background),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -161,12 +161,12 @@ class _SelectThemaState extends State<SelectThema> {
                     colorDialog(context)
                   },
                   icon: Icon(Icons.color_lens),
-                  iconSize: 175,
+                  iconSize: 150,
                 ),
                 IconButton(
                   onPressed: ImageDialog,
                   icon: Icon(Icons.image),
-                  iconSize: 175,
+                  iconSize: 150,
 
                 )
               ],
@@ -175,9 +175,9 @@ class _SelectThemaState extends State<SelectThema> {
             Container(
               padding: EdgeInsets.all(20.0),
               child: Text(
-                  "Choose your thema",
+                  "Choose your background",
                   style: TextStyle(
-                    fontSize: 41,
+                    fontSize: 36,
                   )),
 
             ),

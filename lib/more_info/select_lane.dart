@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lolcard/carddata.dart';
-import 'package:lolcard/more_info/select_thema.dart';
+import 'package:lolcard/more_info/select_background.dart';
 
 class SelectLane extends StatefulWidget {
   final CardData data;
@@ -38,7 +38,7 @@ class _SelectLaneState extends State<SelectLane> {
 
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context)=> SelectThema(widget.data))
+          MaterialPageRoute(builder: (context)=> SelectBackground(widget.data))
       );
 
     }

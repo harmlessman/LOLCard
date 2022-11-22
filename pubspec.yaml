@@ -96,3 +96,15 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: normal
+      fonts:
+        - asset: assets/fonts/Maplestory_Light.ttf
+        - asset: assets/fonts/Maplestory_Bold.ttf
+          weight: 700
+
+    - family: light
+      fonts:
+        - asset: assets/fonts/HeirofLightRegular.ttf
+        - asset: assets/fonts/HeirofLightBold.ttf
+

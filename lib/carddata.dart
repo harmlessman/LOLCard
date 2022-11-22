@@ -55,6 +55,7 @@ class CardData{
     print('lane : $lane');
     print('userLevel : $userLevel');
     print('tier : $tier');
+    print('lp : $lp');
     print('rate : $rate');
     print('win : $win');
     print('loss : $loss');
