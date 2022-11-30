@@ -56,6 +56,7 @@ class _SelectColorState extends State<SelectColor> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
         child: Column(
@@ -68,7 +69,7 @@ class _SelectColorState extends State<SelectColor> {
                   'TextColor',
                   style: TextStyle(
                     fontFamily: 'normal',
-                    fontSize: 40,
+                    fontSize: width * 0.075,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -90,7 +91,7 @@ class _SelectColorState extends State<SelectColor> {
                   'boxColor',
                   style: TextStyle(
                     fontFamily: 'normal',
-                    fontSize: 40,
+                    fontSize: width * 0.075,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -106,13 +107,13 @@ class _SelectColorState extends State<SelectColor> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
                   'boxTextColor',
                   style: TextStyle(
                     fontFamily: 'normal',
-                    fontSize: 40,
+                    fontSize: width * 0.075,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -134,6 +135,7 @@ class _SelectColorState extends State<SelectColor> {
                   padding: EdgeInsets.all(20.0),
                   child: ElevatedButton(
                     onPressed: () => {Navigator.pop(context)},
+                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
                     child: Container(
                       child: Text('Cancle'),
                     ),
@@ -151,6 +153,7 @@ class _SelectColorState extends State<SelectColor> {
                                   background: widget.background,
                                   colorData: colorData))))
                     },
+                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
                     child: Container(
                       child: Text('Enter'),
                     ),

@@ -3,12 +3,12 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter/material.dart';
 import 'package:lolcard/carddata.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lolcard/card_capture.dart';
-import 'package:lolcard/cardframe.dart';
+import 'select_color.dart';
 
 class SelectBackground extends StatefulWidget {
-  final CardData data;
-  const SelectBackground(this.data, {Key? key}) : super(key: key);
+  final CardData cardData;
+
+  const SelectBackground(this.cardData, {Key? key}) : super(key: key);
 
   @override
   State<SelectBackground> createState() => _SelectBackgroundState();
@@ -19,18 +19,15 @@ class _SelectBackgroundState extends State<SelectBackground> {
   dynamic background;
   Color pickerColor = Colors.white;
 
-
-
-
   void changeColor(Color color) {
     setState(() => pickerColor = color);
   }
 
-  colorDialog(BuildContext context){
-    print(background);
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+  colorDialog(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Pick a color!'),
           content: SingleChildScrollView(
@@ -43,9 +40,8 @@ class _SelectBackgroundState extends State<SelectBackground> {
             ElevatedButton(
               child: Text('Got it'),
               onPressed: () {
-                setState(() => background  = pickerColor);
+                setState(() => background = pickerColor);
                 Navigator.of(context).pop();
-
               },
             ),
           ],
@@ -54,78 +50,75 @@ class _SelectBackgroundState extends State<SelectBackground> {
     );
   }
 
-
-
-  ImageDialog() async{
+  ImageDialog() async {
     final getImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      if (getImage!=null) {
+      if (getImage != null) {
         background = getImage;
       }
     });
   }
 
-  EnterEvent(){
-    print(background.runtimeType);
-    if (background != null){
+  EnterEvent() {
+    if (background != null) {
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context)=> CardCapture(CardFrame(cardData : widget.data, background: background)))
-      );
-    }
-    else{
+          MaterialPageRoute(
+              builder: (context) => SelectColor(
+                    cardData: widget.cardData,
+                    background: background,
+                  )));
+    } else {
       nonLaneDialog(context);
     }
     return 0;
   }
-  // image == null ? Text('Your Thema') : Image.file(
-  // File(image.path),
-  // width: 100,
-  // height: 100,
-  // ),
-  Widget Preview(dynamic background){
-    if (background == null){
-    return Container(
-          child: Text('No Color or Image',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30, fontStyle: FontStyle.normal),
+
+  Widget Preview(dynamic background) {
+    double width = MediaQuery.of(context).size.width;
+    if (background == null) {
+      return FittedBox(
+        fit: BoxFit.cover,
+        child: Text(
+          "No Color or Image",
+          style: TextStyle(
+            fontFamily: 'normal',
+            fontSize: width * 0.075,
+            fontWeight: FontWeight.bold,
           ),
+        ),
       );
-    }
-    else if(background is XFile){
+    } else if (background is XFile) {
       // 명함 비율은 9:5
       return Container(
-        height: (MediaQuery.of(context).size.width)*0.6*1.8,
-        width: (MediaQuery.of(context).size.width)*0.6,
+        height: width * 0.6 * 1.8,
+        width: width * 0.6,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           image: DecorationImage(
-            image: FileImage((
-              File(background.path))),
-              fit: BoxFit.fill,
+            image: FileImage((File(background.path))),
+            fit: BoxFit.fill,
           ),
         ),
       );
-    }
-    else{
+    } else {
       return Container(
-        height: (MediaQuery.of(context).size.width)*0.6*1.8,
-        width: (MediaQuery.of(context).size.width)*0.6,
+        height: width * 0.6 * 1.8,
+        width: width * 0.6,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: background
-        ),
+            borderRadius: BorderRadius.circular(10.0), color: background),
       );
     }
   }
 
-  nonLaneDialog(BuildContext context){
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+  nonLaneDialog(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           title: Column(
             children: [Text("Failure")],
           ),
@@ -134,9 +127,7 @@ class _SelectBackgroundState extends State<SelectBackground> {
           ),
           actions: [
             TextButton(
-              onPressed: ()=>{
-                Navigator.pop(context)
-              },
+              onPressed: () => {Navigator.pop(context)},
               child: Text("OK"),
             )
           ],
@@ -147,9 +138,10 @@ class _SelectBackgroundState extends State<SelectBackground> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Center(
-        child : Column(
+        body: Center(
+      child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Preview(background),
@@ -157,29 +149,27 @@ class _SelectBackgroundState extends State<SelectBackground> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () => {
-                    colorDialog(context)
-                  },
+                  onPressed: () => {colorDialog(context)},
                   icon: Icon(Icons.color_lens),
-                  iconSize: 150,
+                  iconSize: width * 0.3,
                 ),
                 IconButton(
                   onPressed: ImageDialog,
                   icon: Icon(Icons.image),
-                  iconSize: 150,
-
+                  iconSize: width * 0.3,
                 )
               ],
             ),
-
-            Container(
-              padding: EdgeInsets.all(20.0),
+            FittedBox(
+              fit: BoxFit.cover,
               child: Text(
-                  "Choose your background",
-                  style: TextStyle(
-                    fontSize: 36,
-                  )),
-
+                "Choose your background",
+                style: TextStyle(
+                  fontFamily: 'normal',
+                  fontSize: width * 0.075,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -187,32 +177,22 @@ class _SelectBackgroundState extends State<SelectBackground> {
                 Container(
                   padding: EdgeInsets.all(20.0),
                   child: ElevatedButton(
-                    onPressed: ()=>{
-                      Navigator.pop(context)
-                    },
-                    child: Container(
-                      child: Text('Cancle'),
-                    ),
+                    onPressed: () => {Navigator.pop(context)},
+                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
+                    child: Text('Cancle'),
                   ),
                 ),
-
                 Container(
                   padding: EdgeInsets.all(20.0),
                   child: ElevatedButton(
                     onPressed: EnterEvent,
-                    child: Container(
-                      child: Text('Enter'),
-                    ),
+                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
+                    child: Text('Enter'),
                   ),
                 ),
-
               ],
             )
-
-        ]
-      ),
-
-    )
-    );
+          ]),
+    ));
   }
 }

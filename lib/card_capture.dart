@@ -49,6 +49,7 @@ class _CardCaptureState extends State<CardCapture> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Center(
       child: Column(
@@ -56,7 +57,12 @@ class _CardCaptureState extends State<CardCapture> {
         children: <Widget>[
           Screenshot(
             controller: screenshotController,
-            child: widget.frame,
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.white),
+              child: widget.frame,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -64,13 +70,13 @@ class _CardCaptureState extends State<CardCapture> {
               IconButton(
                 onPressed: () => {Navigator.of(context).pop()},
                 icon: Icon(Icons.arrow_back),
-                iconSize: 75,
+                iconSize: width * 0.15,
               ),
               IconButton(
                 onPressed: () =>
                     {Navigator.popUntil(context, ModalRoute.withName("/"))},
                 icon: Icon(Icons.home),
-                iconSize: 75,
+                iconSize: width * 0.15,
               ),
               IconButton(
                 onPressed: () {
@@ -79,7 +85,7 @@ class _CardCaptureState extends State<CardCapture> {
                   });
                 },
                 icon: Icon(Icons.camera_alt),
-                iconSize: 75,
+                iconSize: width * 0.15,
               ),
             ],
           )

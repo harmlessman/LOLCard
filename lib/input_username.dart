@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data_crawling.dart';
-import 'package:lolcard/more_info/select_lane.dart';
+import 'package:lolcard/more_info/select_position.dart';
 
 class InputUsername extends StatefulWidget {
   const InputUsername({Key? key}) : super(key: key);
@@ -14,43 +14,42 @@ class _InputUsernameState extends State<InputUsername> {
   String userName = '';
   bool loading = false;
   Map countryMap = {
-    'North America' : 'na',
-    'Europe West' : 'euw',
-    'Europe Nordic & East' : 'eune',
-    'Oceania' : 'oce',
-    'Korea' : 'kr',
-    'Japan' : 'jp',
-    'Brazil' : 'br',
-    'LAS' : 'las',
-    'LAN' : 'lan',
-    'Russia' : 'ru',
-    'Turkiye' : 'tr'
+    'North America': 'na',
+    'Europe West': 'euw',
+    'Europe Nordic & East': 'eune',
+    'Oceania': 'oce',
+    'Korea': 'kr',
+    'Japan': 'jp',
+    'Brazil': 'br',
+    'LAS': 'las',
+    'LAN': 'lan',
+    'Russia': 'ru',
+    'Turkiye': 'tr'
   };
   String selectCountry = 'Korea';
 
-
-
-  LoadingDialog(BuildContext context){
-    AlertDialog alert=AlertDialog(
+  LoadingDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
       content: Row(
         children: [
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 5),child:Text("Loading" )),
-        ],),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)),
+          Container(margin: EdgeInsets.only(left: 5), child: Text("Loading")),
+        ],
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
     );
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return alert;
       },
     );
   }
 
-  FailDialog(BuildContext context, dynamic code){
+  FailDialog(BuildContext context, dynamic code) {
     String text = 'Null';
-    switch (code){
+    switch (code) {
       case -1:
         text = 'Blank';
         break;
@@ -64,12 +63,13 @@ class _InputUsernameState extends State<InputUsername> {
         text = 'An Unregistered Summoner';
         break;
     }
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           title: Column(
             children: [Text("Failure")],
           ),
@@ -78,9 +78,7 @@ class _InputUsernameState extends State<InputUsername> {
           ),
           actions: [
             TextButton(
-              onPressed: ()=>{
-                Navigator.pop(context)
-              },
+              onPressed: () => {Navigator.pop(context)},
               child: Text("OK"),
             )
           ],
@@ -89,9 +87,7 @@ class _InputUsernameState extends State<InputUsername> {
     );
   }
 
-
-
-  EnterEvent() async{
+  EnterEvent() async {
     userName = inputController.text;
     LoadingDialog(context);
 
@@ -103,123 +99,105 @@ class _InputUsernameState extends State<InputUsername> {
     }
 
     // await 붙이면 CardData, 안붙이면 Future<dynamic>
-    dynamic data = await dataCrawling(userName, server: countryMap[selectCountry]);
+    dynamic data =
+        await dataCrawling(userName, server: countryMap[selectCountry]);
 
     Navigator.pop(context);
 
     // if error occur
-    if (int.tryParse(data.toString()) != null){
+    if (int.tryParse(data.toString()) != null) {
       FailDialog(context, data);
       return int.tryParse(data.toString());
     }
 
     Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context)=> SelectLane(data))
-    );
+        context, MaterialPageRoute(builder: (context) => SelectPosition(data)));
     return data;
-
   }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: Colors.green[50],
         body: Center(
-
-            child:Column(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            FittedBox(
+              fit: BoxFit.cover,
+              child: Text(
+                'Input your username!',
+                style: TextStyle(
+                  fontFamily: 'normal',
+                  fontSize: width * 0.075,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
-
+              children: [
+                Text(
+                  'Choose Country',
+                  style: TextStyle(
+                    fontFamily: 'normal',
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                  width: 20,
+                ),
+                DropdownButton(
+                    value: selectCountry,
+                    items: countryMap.keys.map((value) {
+                      return DropdownMenuItem(value: value, child: Text(value));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectCountry = value as String;
+                      });
+                    })
+              ],
+            ),
+            Container(
+                padding: EdgeInsets.all(20.0),
+                child: TextField(
+                  controller: inputController,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(width: 1, color: Colors.redAccent),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                    labelText: 'username',
+                    hintText: 'Enter your username',
+                  ),
+                )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(20.0),
-                  child: Text(
-                    'Input your username!',
-                    style: TextStyle(
-                      fontFamily: 'normal',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-
-                    ),
-
+                  child: ElevatedButton(
+                    onPressed: () => {Navigator.pop(context)},
+                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
+                    child: Text('Cancle'),
                   ),
                 ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Choose Country'),
-
-                    SizedBox(
-                      height: 20,
-                      width: 20,
-                    ),
-
-                    DropdownButton(
-                        value: selectCountry,
-                        items: countryMap.keys.map((value){
-                          return DropdownMenuItem(
-                              value: value,
-                              child: Text(value));
-                        }).toList(),
-                        onChanged: (value){
-                          setState(() {
-                            selectCountry = value as String;
-                          });
-                        })
-                  ],
-                ),
-
                 Container(
-                    padding: EdgeInsets.all(20.0),
-                    child:TextField(
-                      controller: inputController,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          borderSide: BorderSide(width: 1, color: Colors.redAccent),
-                        ),
-
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-
-                        labelText: 'username',
-                        hintText: 'Enter your username',
-                      ),
-                    )
-
+                  padding: EdgeInsets.all(20.0),
+                  child: ElevatedButton(
+                    onPressed: EnterEvent,
+                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
+                    child: Text('Enter'),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(20.0),
-                      child: ElevatedButton(
-                        onPressed: ()=>{
-                          Navigator.pop(context)
-                        },
-                        child: Container(
-                          child: Text('Cancle'),
-                        ),
-                      ),
-                    ),
-
-                    Container(
-                      padding: EdgeInsets.all(20.0),
-                      child: ElevatedButton(
-                        onPressed: EnterEvent,
-                        child: Container(
-                          child: Text('Enter'),
-                        ),
-                      ),
-                    ),
-
-                  ],
-                )
               ],
             )
-        )
-    );
+          ],
+        )));
   }
 }
