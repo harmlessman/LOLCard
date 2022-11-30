@@ -71,6 +71,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/ranked-emblems/
+    - assets/positions/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -103,8 +105,8 @@ flutter:
         - asset: assets/fonts/Maplestory_Bold.ttf
           weight: 700
 
-    - family: light
-      fonts:
-        - asset: assets/fonts/HeirofLightRegular.ttf
-        - asset: assets/fonts/HeirofLightBold.ttf
+#    - family: light
+#      fonts:
+#        - asset: assets/fonts/HeirofLightRegular.ttf
+#        - asset: assets/fonts/HeirofLightBold.ttf
 
