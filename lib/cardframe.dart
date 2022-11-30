@@ -15,18 +15,14 @@ class CardFrame extends StatefulWidget {
   final dynamic background;
   final Map colorData;
 
-
   @override
   State<CardFrame> createState() => _CardFrameState();
 }
 
 class _CardFrameState extends State<CardFrame> {
-
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Container(
       width: (width * 0.9),
       height: (width * 0.9 * 1.8),
@@ -43,7 +39,6 @@ class _CardFrameState extends State<CardFrame> {
               color: widget.background),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //mainAxisSize: MainAxisSize.min,
         children: [
           Container(
               width: (width * 0.35),
@@ -61,7 +56,7 @@ class _CardFrameState extends State<CardFrame> {
               widget.cardData.userName!,
               style: TextStyle(
                   fontFamily: 'normal',
-                  fontSize: width*0.1,
+                  fontSize: width * 0.1,
                   fontWeight: FontWeight.bold,
                   color: widget.colorData['textColor']),
             ),
@@ -69,23 +64,29 @@ class _CardFrameState extends State<CardFrame> {
           FittedBox(
             fit: BoxFit.cover,
             child: Text(
-              'LV.${widget.cardData.userLevel}\n${widget.cardData.lane!} laner',
+              'LV.${widget.cardData.userLevel}\n${widget.cardData.lane!} Laner',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontFamily: 'normal',
-                  fontSize: width*0.04,
+                  fontSize: width * 0.04,
                   fontWeight: FontWeight.bold,
                   color: widget.colorData['textColor']),
             ),
           ),
           Card(
-              margin: EdgeInsets.symmetric(horizontal: width*0.1),
+              margin: EdgeInsets.symmetric(horizontal: width * 0.1),
               color: widget.colorData['boxColor'],
               child: ListTile(
-                  //visualDensity: VisualDensity(vertical: -3),
-                  leading: FlutterLogo(
-                    size: width*0.1,
-                  ),
+                  leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: widget.cardData.tier == 'unranked'
+                          ? Icon(
+                              Icons.question_mark_rounded,
+                              size: width * 0.1,
+                            )
+                          : Image.asset(
+                              'assets/ranked-emblems/Emblem_${widget.cardData.tier?.split(' ')[0]}.png',
+                              width: width * 0.1)),
                   title: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
@@ -93,7 +94,7 @@ class _CardFrameState extends State<CardFrame> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.04,
+                        fontSize: width * 0.04,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
@@ -106,38 +107,46 @@ class _CardFrameState extends State<CardFrame> {
                       '${widget.cardData.rate}% (${widget.cardData.win}Win / ${widget.cardData.loss}Loss)',
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.03,
+                        fontSize: width * 0.03,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
                     ),
                   ))),
           SizedBox(
-            height: width*0.05,
-            width: width*0.5,
+            height: width * 0.05,
+            width: width * 0.5,
             child: Divider(color: Colors.white, thickness: 2),
           ),
           Card(
-              margin: EdgeInsets.symmetric(horizontal: width*0.1),
+              margin: EdgeInsets.symmetric(horizontal: width * 0.1),
               color: widget.colorData['boxColor'],
               child: ListTile(
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                      widget.cardData.mostChampions!['champ0']['champIcon'],
-                      fit: BoxFit.fill,
-                      width: width*0.1,
-                      height: width*0.1,
-                    ),
+                    child: widget.cardData.mostChampions!['champ0']
+                                ['champIcon'] ==
+                            ''
+                        ? Icon(
+                            Icons.question_mark_rounded,
+                            size: width * 0.1,
+                          )
+                        : Image.network(
+                            widget.cardData.mostChampions!['champ0']
+                                ['champIcon'],
+                            fit: BoxFit.fill,
+                            width: width * 0.1,
+                            height: width * 0.1,
+                          ),
                   ),
                   title: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      "${widget.cardData.mostChampions!['champ0']['champName']}  ${widget.cardData.mostChampions!['champ0']['champPlay']}play  ${widget.cardData.mostChampions!['champ0']['champRate']}%",
+                      "${widget.cardData.mostChampions!['champ0']['champName']}  ${widget.cardData.mostChampions!['champ0']['champPlay']}plays  ${widget.cardData.mostChampions!['champ0']['champRate']}%",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.04,
+                        fontSize: width * 0.04,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
@@ -150,33 +159,41 @@ class _CardFrameState extends State<CardFrame> {
                       '${widget.cardData.mostChampions!['champ0']['champGrade']}',
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.03,
+                        fontSize: width * 0.03,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
                     ),
                   ))),
           Card(
-              margin: EdgeInsets.symmetric(horizontal: width*0.1),
+              margin: EdgeInsets.symmetric(horizontal: width * 0.1),
               color: widget.colorData['boxColor'],
               child: ListTile(
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                      widget.cardData.mostChampions!['champ1']['champIcon'],
-                      fit: BoxFit.fill,
-                      width: width*0.1,
-                      height: width*0.1,
-                    ),
+                    child: widget.cardData.mostChampions!['champ1']
+                                ['champIcon'] ==
+                            ''
+                        ? Icon(
+                            Icons.question_mark_rounded,
+                            size: width * 0.1,
+                          )
+                        : Image.network(
+                            widget.cardData.mostChampions!['champ1']
+                                ['champIcon'],
+                            fit: BoxFit.fill,
+                            width: width * 0.1,
+                            height: width * 0.1,
+                          ),
                   ),
                   title: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      "${widget.cardData.mostChampions!['champ1']['champName']}  ${widget.cardData.mostChampions!['champ1']['champPlay']}play  ${widget.cardData.mostChampions!['champ1']['champRate']}%",
+                      "${widget.cardData.mostChampions!['champ1']['champName']}  ${widget.cardData.mostChampions!['champ1']['champPlay']}plays  ${widget.cardData.mostChampions!['champ1']['champRate']}%",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.04,
+                        fontSize: width * 0.04,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
@@ -189,33 +206,41 @@ class _CardFrameState extends State<CardFrame> {
                       '${widget.cardData.mostChampions!['champ1']['champGrade']}',
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.03,
+                        fontSize: width * 0.03,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
                     ),
                   ))),
           Card(
-              margin: EdgeInsets.symmetric(horizontal: width*0.1),
+              margin: EdgeInsets.symmetric(horizontal: width * 0.1),
               color: widget.colorData['boxColor'],
               child: ListTile(
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                      widget.cardData.mostChampions!['champ2']['champIcon'],
-                      fit: BoxFit.fill,
-                      width: width*0.1,
-                      height: width*0.1,
-                    ),
+                    child: widget.cardData.mostChampions!['champ2']
+                                ['champIcon'] ==
+                            ''
+                        ? Icon(
+                            Icons.question_mark_rounded,
+                            size: width * 0.1,
+                          )
+                        : Image.network(
+                            widget.cardData.mostChampions!['champ2']
+                                ['champIcon'],
+                            fit: BoxFit.fill,
+                            width: width * 0.1,
+                            height: width * 0.1,
+                          ),
                   ),
                   title: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      "${widget.cardData.mostChampions!['champ2']['champName']}  ${widget.cardData.mostChampions!['champ2']['champPlay']}play  ${widget.cardData.mostChampions!['champ2']['champRate']}%",
+                      "${widget.cardData.mostChampions!['champ2']['champName']}  ${widget.cardData.mostChampions!['champ2']['champPlay']}plays  ${widget.cardData.mostChampions!['champ2']['champRate']}%",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.04,
+                        fontSize: width * 0.04,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
@@ -228,7 +253,7 @@ class _CardFrameState extends State<CardFrame> {
                       '${widget.cardData.mostChampions!['champ2']['champGrade']}',
                       style: TextStyle(
                         fontFamily: 'normal',
-                        fontSize: width*0.03,
+                        fontSize: width * 0.03,
                         fontWeight: FontWeight.bold,
                         color: widget.colorData['boxTextColor'],
                       ),
