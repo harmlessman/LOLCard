@@ -10,6 +10,19 @@ If you want to show off your LOL career, try this project!
 * The business card is provided as an image file (of course, you can save it in your own gallery) 
 
 
+# How To Use
+
+1. Click the plus icon in the lower right corner
+
+2. Please follow the instructions on the screen
+   There are four stages.
+* input username
+* select position
+* select background 
+* selcet text, box color
+
+3. Click the Home icon to return to the initial screen, or click the Camera icon to add the completed card to the gallery.
+
 
 
 
