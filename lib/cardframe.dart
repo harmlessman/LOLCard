@@ -79,7 +79,7 @@ class _CardFrameState extends State<CardFrame> {
               child: ListTile(
                   leading: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: widget.cardData.tier == 'unranked'
+                      child: widget.cardData.tier == 'Unranked'
                           ? Icon(
                               Icons.question_mark_rounded,
                               size: width * 0.1,

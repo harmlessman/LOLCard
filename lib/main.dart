@@ -3,9 +3,10 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'input_username.dart';
 import 'setting.dart';
 import 'dart:io';
-
+import 'package:flutter/services.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
