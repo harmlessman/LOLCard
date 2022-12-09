@@ -40,20 +40,22 @@ class _AppInfoState extends State<AppInfo> {
                     title: Column(
                       children: [Text("Riot Policies")],
                     ),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                            '[LOLCard] was created under Riot Games "Legal Jibber Jabber" policy using assets owned by Riot Games.Riot Games does not endorse or sponsor this project.\n'),
-                        Text(
-                            "[LOLCard] isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.\n"),
-                        Text(
-                            'The League of Legends position icon, rank icon is taken from the link below.'),
-                        Text('https://developer.riotgames.com/docs/lol\n'),
-                        Text(
-                            'Summoner records, rank information, etc. are obtained from OP.GG.'),
-                      ],
+                    content: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              '[LOLCard] was created under Riot Games "Legal Jibber Jabber" policy using assets owned by Riot Games.Riot Games does not endorse or sponsor this project.\n'),
+                          Text(
+                              "[LOLCard] isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.\n"),
+                          Text(
+                              'The League of Legends position icon, rank icon is taken from the link below.'),
+                          Text('https://developer.riotgames.com/docs/lol\n'),
+                          Text(
+                              'Summoner records, rank information, etc. are obtained from OP.GG.'),
+                        ],
+                      ),
                     ),
                     actions: [
                       TextButton(
