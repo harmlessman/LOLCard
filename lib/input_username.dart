@@ -54,7 +54,7 @@ class _InputUsernameState extends State<InputUsername> {
         text = 'Blank';
         break;
       case 0:
-        text = 'Except Error (normally network issue)';
+        text = 'Network Error\n(Check Internet connection)';
         break;
       case 1:
         text = 'op.gg Server Error';
@@ -74,7 +74,13 @@ class _InputUsernameState extends State<InputUsername> {
             children: [Text("Failure")],
           ),
           content: Row(
-            children: [Text(text)],
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                textAlign: TextAlign.center,
+              )
+            ],
           ),
           actions: [
             TextButton(

@@ -58,6 +58,7 @@ class _SelectColorState extends State<SelectColor> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.yellow[50],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

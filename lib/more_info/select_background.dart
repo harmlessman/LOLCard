@@ -140,59 +140,62 @@ class _SelectBackgroundState extends State<SelectBackground> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: Colors.red[50],
         body: Center(
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Preview(background),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () => {colorDialog(context)},
-                  icon: Icon(Icons.color_lens),
-                  iconSize: width * 0.3,
-                ),
-                IconButton(
-                  onPressed: ImageDialog,
-                  icon: Icon(Icons.image),
-                  iconSize: width * 0.3,
-                )
-              ],
-            ),
-            FittedBox(
-              fit: BoxFit.cover,
-              child: Text(
-                "Choose your background",
-                style: TextStyle(
-                  fontFamily: 'normal',
-                  fontSize: width * 0.075,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Row(
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  child: ElevatedButton(
-                    onPressed: () => {Navigator.pop(context)},
-                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
-                    child: Text('Cancle'),
+                Preview(background),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () => {colorDialog(context)},
+                      icon: Icon(Icons.color_lens),
+                      iconSize: width * 0.3,
+                    ),
+                    IconButton(
+                      onPressed: ImageDialog,
+                      icon: Icon(Icons.image),
+                      iconSize: width * 0.3,
+                    )
+                  ],
+                ),
+                FittedBox(
+                  fit: BoxFit.cover,
+                  child: Text(
+                    "Choose your background",
+                    style: TextStyle(
+                      fontFamily: 'normal',
+                      fontSize: width * 0.075,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  child: ElevatedButton(
-                    onPressed: EnterEvent,
-                    style: ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
-                    child: Text('Enter'),
-                  ),
-                ),
-              ],
-            )
-          ]),
-    ));
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: ElevatedButton(
+                        onPressed: () => {Navigator.pop(context)},
+                        style:
+                            ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
+                        child: Text('Cancle'),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: ElevatedButton(
+                        onPressed: EnterEvent,
+                        style:
+                            ElevatedButton.styleFrom(minimumSize: Size(80, 40)),
+                        child: Text('Enter'),
+                      ),
+                    ),
+                  ],
+                )
+              ]),
+        ));
   }
 }
