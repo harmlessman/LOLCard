@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'input_username.dart';
-import 'setting.dart';
+import 'app_info.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
 
 void main() {
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
-  sleep(const Duration(seconds:1));
+  sleep(const Duration(seconds: 1));
   FlutterNativeSplash.remove();
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -24,9 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'LOL Card main',
-        home:MainPage()
-
-    );
+        home: MainPage(),
+        debugShowCheckedModeBanner: false);
   }
 }
 
@@ -40,33 +37,93 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          title: Text('LOL Card'),
+          title: const Text('LOLCard'),
           centerTitle: true,
-          actions: [IconButton(onPressed: OpenSet, icon: Icon(Icons.settings))],
+          actions: [
+            IconButton(onPressed: OpenAppInfo, icon: const Icon(Icons.info))
+          ],
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: OpenInputUsername,
-            child: Icon(Icons.add)
-        )
-
-    );
+            onPressed: OpenInputUsername, child: const Icon(Icons.add)),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FittedBox(
+                fit: BoxFit.cover,
+                child: Text(
+                  'Make your Card!',
+                  style: TextStyle(
+                    fontFamily: 'normal',
+                    fontSize: width * 0.075,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: width * 0.1,
+              ),
+              FittedBox(
+                fit: BoxFit.cover,
+                child: Text(
+                  '1. Click the plus icon in the lower right corner',
+                  style: TextStyle(
+                    fontFamily: 'normal',
+                    fontSize: width * 0.040,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: width * 0.1,
+              ),
+              FittedBox(
+                fit: BoxFit.cover,
+                child: Text(
+                  '2. Follow the four steps below.',
+                  style: TextStyle(
+                    fontFamily: 'normal',
+                    fontSize: width * 0.040,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: width * 0.05,
+              ),
+              Expanded(child: Image.asset('assets/images/1.png')),
+              Expanded(child: Image.asset('assets/images/2.png')),
+              Expanded(child: Image.asset('assets/images/3.png')),
+              Expanded(child: Image.asset('assets/images/4.png')),
+              SizedBox(
+                height: width * 0.1,
+              ),
+              FittedBox(
+                fit: BoxFit.cover,
+                child: Text(
+                  '3. Click the camera icon to save your card',
+                  style: TextStyle(
+                    fontFamily: 'normal',
+                    fontSize: width * 0.040,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              Expanded(child: Image.asset('assets/images/5.png')),
+            ],
+          ),
+        ));
   }
 
-  void OpenInputUsername(){
+  void OpenInputUsername() {
     Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context)=> InputUsername())
-    );
+        context, MaterialPageRoute(builder: (context) => InputUsername()));
   }
 
-
-  void OpenSet(){
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context)=> Setting())
-    );
+  void OpenAppInfo() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AppInfo()));
   }
 }
-
