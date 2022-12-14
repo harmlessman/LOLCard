@@ -1,27 +1,31 @@
 # LOLCard
-The purpose of this project is to create business cards based on information from League of Legends(LOL) users.  
-League of Legends users' levels, tiers, winning rates, summoner icons, and Most Champion information are used in business cards.  
+The purpose of this project is to create cards based on information from League of Legends(LOL) users.  
+League of Legends users' levels, tiers, winning rates, summoner icons, and Most Champion information are used in cards.  
 If you want to show off your LOL career, try this project!
 
 
 # This Project
 * The LOL information used in this project comes from `OP.GG`, the League of Legends stats search engine. 
-* Users of this program can get their own business cards by simply performing simple tasks such as entering the summoner's name and selecting the line they usually go to. 
-* The business card is provided as an image file (of course, you can save it in your own gallery) 
+* Users of this program can get their own cards by simply performing simple tasks such as entering the summoner's name and selecting the position they usually go to. 
+* The card is provided as an image file (of course, you can save it in your own gallery) 
 
 
 # How To Use
 
-1. Click the plus icon in the lower right corner
 
-2. Please follow the instructions on the screen
-   There are four stages.
+
+![mainpage](assets/images/mainpage.png)
+
+1. Click the plus icon in the lower right corner.
+
+
+2. Follow the four steps below.
 * input username
-* select position
-* select background 
-* selcet text, box color
+* choose position
+* choose background 
+* choose text color, box color, boxtext color
 
-3. Click the Home icon to return to the initial screen, or click the Camera icon to add the completed card to the gallery.
+3. Click the camera icon to save your card.
 
 
 
