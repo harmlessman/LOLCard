@@ -62,6 +62,9 @@ class _InputUsernameState extends State<InputUsername> {
       case 2:
         text = 'An Unregistered Summoner';
         break;
+      case 3:
+        text = 'Failed to import data';
+        break;
     }
     showDialog(
       barrierDismissible: false,
@@ -94,6 +97,7 @@ class _InputUsernameState extends State<InputUsername> {
   }
 
   EnterEvent() async {
+    dynamic data;
     userName = inputController.text;
     LoadingDialog(context);
 
@@ -104,9 +108,13 @@ class _InputUsernameState extends State<InputUsername> {
       return -1;
     }
 
-    // await 붙이면 CardData, 안붙이면 Future<dynamic>
-    dynamic data =
-        await dataCrawling(userName, server: countryMap[selectCountry]);
+    try {
+      data = await dataCrawling(userName, server: countryMap[selectCountry]);
+    } catch (e) {
+      Navigator.pop(context);
+      FailDialog(context, 3);
+      return 3;
+    }
 
     Navigator.pop(context);
 
