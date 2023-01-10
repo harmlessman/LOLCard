@@ -72,7 +72,7 @@ dynamic dataCrawling(String userName, {String server = 'kr'}) async {
     },
   };
 
-  var rankInfo = opggData.getElementsByClassName('css-1v663t e1x14w4w1')[0];
+  //var rankInfo = opggData.getElementsByClassName('css-1v663t e1x14w4w1')[0];
   var mostChampInfo =
       opggData.getElementsByClassName('css-e9xk5o e1g7spwk3')[0];
 
@@ -109,25 +109,25 @@ dynamic dataCrawling(String userName, {String server = 'kr'}) async {
   }
 
   //rankInfo crawling
-  if (rankInfo.getElementsByClassName('tier').isNotEmpty) {
-    tier = (rankInfo
+  if (opggData.getElementsByClassName('tier').isNotEmpty) {
+    tier = (opggData
         .getElementsByClassName('tier')[0]
         .innerHtml
         .replaceAll(ANO, ''));
   }
 
-  if (rankInfo.getElementsByClassName('lp').isNotEmpty) {
+  if (opggData.getElementsByClassName('lp').isNotEmpty) {
     lp = (int.parse(
-        rankInfo.getElementsByClassName('lp')[0].innerHtml.split(ANO)[0]));
+        opggData.getElementsByClassName('lp')[0].innerHtml.split(ANO)[0]));
   }
 
-  if (rankInfo.getElementsByClassName('win-lose').isNotEmpty) {
-    win = (int.parse(rankInfo
+  if (opggData.getElementsByClassName('win-lose').isNotEmpty) {
+    win = (int.parse(opggData
         .getElementsByClassName('win-lose')[0]
         .innerHtml
         .split(ANO)[0]
         .replaceAll(RegExp(r'[^0-9]'), '')));
-    loss = (int.parse(rankInfo
+    loss = (int.parse(opggData
         .getElementsByClassName('win-lose')[0]
         .innerHtml
         .split(ANO)
@@ -135,9 +135,9 @@ dynamic dataCrawling(String userName, {String server = 'kr'}) async {
         .replaceAll(RegExp(r'[^0-9]'), '')));
   }
 
-  if (rankInfo.getElementsByClassName('ratio').isNotEmpty) {
+  if (opggData.getElementsByClassName('ratio').isNotEmpty) {
     rate = (int.parse(
-        rankInfo.getElementsByClassName('ratio')[0].innerHtml.split(ANO)[2]));
+        opggData.getElementsByClassName('ratio')[0].innerHtml.split(ANO)[2]));
   }
 
   //userInfo crawling
@@ -150,7 +150,7 @@ dynamic dataCrawling(String userName, {String server = 'kr'}) async {
 
   if (opggData.getElementsByClassName('level').isNotEmpty) {
     userLevel =
-        (int.parse(opggData.getElementsByClassName('level')[0].innerHtml));
+        (int.parse(opggData.getElementsByClassName('level').last.innerHtml));
   }
 
   CardData data = CardData(
