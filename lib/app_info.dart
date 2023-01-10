@@ -8,7 +8,7 @@ class AppInfo extends StatefulWidget {
 }
 
 class _AppInfoState extends State<AppInfo> {
-  String version = '1.0.0';
+  String version = '1.0.1';
 
   @override
   Widget build(BuildContext context) {
