@@ -14,7 +14,11 @@ If you want to show off your LOL career, try this project!
 
 
 
-![mainpage](assets/images/mainpage.png)
+<img src="assets/images/mainpage.png" width="360"/>
+
+
+<img src="assets/images/faker.jpg" width="360"/>
+
 
 1. Click the plus icon in the lower right corner.
 
