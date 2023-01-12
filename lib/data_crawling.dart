@@ -117,27 +117,27 @@ dynamic dataCrawling(String userName, {String server = 'kr'}) async {
   }
 
   if (opggData.getElementsByClassName('lp').isNotEmpty) {
-    lp = (int.parse(
-        opggData.getElementsByClassName('lp')[0].innerHtml.split(ANO)[0]));
+    lp = (int.tryParse(
+        opggData.getElementsByClassName('lp')[0].innerHtml.split(ANO)[0]) ?? 0);
   }
 
   if (opggData.getElementsByClassName('win-lose').isNotEmpty) {
-    win = (int.parse(opggData
+    win = (int.tryParse(opggData
         .getElementsByClassName('win-lose')[0]
         .innerHtml
         .split(ANO)[0]
-        .replaceAll(RegExp(r'[^0-9]'), '')));
-    loss = (int.parse(opggData
+        .replaceAll(RegExp(r'[^0-9]'), '')) ?? 0);
+    loss = (int.tryParse(opggData
         .getElementsByClassName('win-lose')[0]
         .innerHtml
         .split(ANO)
         .last
-        .replaceAll(RegExp(r'[^0-9]'), '')));
+        .replaceAll(RegExp(r'[^0-9]'), '')) ?? 0);
   }
 
   if (opggData.getElementsByClassName('ratio').isNotEmpty) {
-    rate = (int.parse(
-        opggData.getElementsByClassName('ratio')[0].innerHtml.split(ANO)[2]));
+    rate = (int.tryParse(
+        opggData.getElementsByClassName('ratio')[0].innerHtml.split(ANO)[2]) ?? 0);
   }
 
   //userInfo crawling
@@ -150,7 +150,7 @@ dynamic dataCrawling(String userName, {String server = 'kr'}) async {
 
   if (opggData.getElementsByClassName('level').isNotEmpty) {
     userLevel =
-        (int.parse(opggData.getElementsByClassName('level').last.innerHtml));
+        (int.tryParse(opggData.getElementsByClassName('level').last.innerHtml) ?? 0);
   }
 
   CardData data = CardData(
