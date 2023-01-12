@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AppInfo extends StatefulWidget {
   const AppInfo({Key? key}) : super(key: key);
@@ -8,10 +9,14 @@ class AppInfo extends StatefulWidget {
 }
 
 class _AppInfoState extends State<AppInfo> {
-  String version = '1.0.1';
+  String version = '';
 
   @override
   Widget build(BuildContext context) {
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      version = packageInfo.version;
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text('AppInfo'),
